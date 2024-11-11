@@ -22,12 +22,16 @@ if (!isset($_SESSION['username'])) {
 <body>
     <h2>Welcome to the Coffeeshop System, <?php echo $_SESSION['username']; ?>!</h2>
 
-    <p>This is the Home Page</p>
+    <p>Here, you can access the menu, login, or register</p>
     <nav>
             <ul>
-                <li><a href="#Login">Login</a></li>  <!--connect the php link-->
-                <li><a href="#About">About</a></li>
-                <li><a href="#Menu">Menu</a></li>
+                <li>
+                    <?php include('login.php');?>
+                </li>
+
+                <li>
+                    <?php include('register.php');?>
+                </li>
             </ul>
         </nav>
     
