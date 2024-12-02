@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
@@ -22,19 +24,27 @@ if (!isset($_SESSION['username'])) {
 <body>
     <h2>Welcome to the Coffeeshop System, <?php echo $_SESSION['username']; ?>!</h2>
 
-    <p>Here, you can access the menu, login, or register</p>
-    <nav>
-            <ul>
-                <li>
-                    <?php include('login.php');?>
-                </li>
-
-                <li>
-                    <?php include('register.php');?>
-                </li>
-            </ul>
-        </nav>
+    <p>Here, you can access the menu!</p>
     
+    <?php include('menu.php'); ?>
+
+    <?php if ($_SESSION['role'] == 'Manager'): ?>
+        <form action="edit_menu.php" method="get">
+            <input type="submit" value="Edit Menu">
+        </form>
+    <?php endif; ?>
+
+    <?php if ($_SESSION['role'] == 'Customer'): ?>
+        <form action="view_personal_order.php" method="get">
+            <input type="submit" value="View My Orders">
+        </form>
+    <?php endif; ?>
+
+    <?php if ($_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'Barista'): ?>
+        <form action="view_all_orders.php" method="get">
+            <input type="submit" value="View All Orders">
+        </form>
+    <?php endif; ?>
 
     <form action="logout.php" method="post">
         <input type="submit" name="logout" value="Logout">

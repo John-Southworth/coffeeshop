@@ -8,12 +8,13 @@ $registerError = '';
 $registerSuccess = '';
 
 if (isset($_POST['submit']) && isset($_POST['username']) && !empty($_POST['username']) && !empty($_POST['password'])) {
+    $conn = getConnection(); // Get the database connection
     $sql = "SELECT * FROM users WHERE username='" . $_POST['username'] . "'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $registerError = 'Username already exists';
     } else {
-        $role = 'user'; // Default role
+        $role = 'Customer'; // Default role
         if (!empty($_POST['role_password']) && $_POST['role_password'] === 'Apricot') {
             $role = 'Manager';
         }

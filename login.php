@@ -26,7 +26,9 @@ if (isset($_POST['submit']) && isset($_POST['username']) && !empty($_POST['usern
         } else {
             // Log in the user
             loginUser($userData['username']);
+            $_SESSION['user_id'] = $userData['id'];
             $_SESSION['username'] = $userData['username'];
+            $_SESSION['role'] = $userData['role'];
             header('Location: home.php');
             exit;
         }
