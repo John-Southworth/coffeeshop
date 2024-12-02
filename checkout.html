@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Checkout Page</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Checkout Here:</h1>
+
+        <!-- Display's user items in the cart -->
+        <div class="cart">
+            <h2>Items in the cart:</h2>
+            <?php include 'view_personal_order.php'; ?>
+        </div>
+
+        <!-- Display's users total -->
+        <p class="total">Total Price: <?php echo AddToOrder(); ?></p>
+
+        <!-- Checkout Form -->
+        <form class="checkout=form" id="checkoutForm" action="process_checkout.php" method="POST">
+            <h2>Checkout Information</h2>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email Address" required>
+            <span id="emailError" class="error">Please Enter a Valid Email.</span>
+
+            <label for="payment">Payment Method</label>
+            <select id="payment" name="payment" required>
+                <option value="credit_card">Credit Card</option>
+                <option value="Apple Cash">Apple Cash</option>
+                <option value="Venmo/PayPal/CashApp">Venmo, PayPal, CashApp</option>
+            </select>
+
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <script>
+        //Validates Form Info
+        document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+            let isValid = true;
+
+            const name = document.getElementById('name');
+            const nameError = document.getElementById('nameError');
+            if (name.value.trim() === '') {
+                nameError.style.display = 'block';
+                isValid = false;
+            } else {
+                nameError.style.display = 'none';
+            }
+
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email.value.trim())) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            const address = document.getElementById('address');
+            const addressError = document.getElementById('addressError');
+            if (address.value.trim() === '') {
+                addressError.style.display = 'block';
+                isValid = false;
+            } else {
+                addressError.style.display = 'none';
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
