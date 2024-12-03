@@ -59,6 +59,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove_item'])) {
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
+    <div class="checkout">
+        <h1>Ready To Checkout</h1>
+        <div id="orderItem">
+            <?php include 'view_personal_order.php'; ?>
+        </div>
+
+        <p class="total">Total: <?php echo AddToOrder(); ?></p>
+
+        <!-- Checkout Button -->
+        <button id="checkoutButton">Checkout</button>
+    </div>
+
+    <script>
+        document.getElementById('checkoutButton').addEventListener('click', function () {
+            window.location.href = 'checkout.html';
+        });
+
+    <form method="post" action="home.html">
+        <input type="submit" value="Back To Homepage">
+    </form>
 
     <form method="post" action="home.php">
         <input type="submit" value="Back to Home">
